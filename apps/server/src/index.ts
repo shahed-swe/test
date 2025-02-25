@@ -14,8 +14,11 @@ fastify.register(inventoryRoutes, { prefix: '/api/v1/inventory' });
 // Start the server
 const start = async () => {
   try {
-    await fastify.listen({ port: parseInt(env().PORT!!, 10) });
-    console.log(`Server running on port ${env().PORT}`);
+    await fastify.listen({ 
+      port: parseInt(env().PORT!! || '3001', 10),
+      host: '0.0.0.0'  // This ensures the server listens on all network interfaces
+    });
+    console.log(`Server running on http://0.0.0.0:${env().PORT}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

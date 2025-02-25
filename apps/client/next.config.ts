@@ -1,6 +1,9 @@
 export default {
   reactStrictMode: true,
   output: 'standalone',
+  experimental: {
+    outputFileTracingRoot: undefined,
+  },
   images: {
     remotePatterns: [
       {

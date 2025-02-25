@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRETKEY!, {
-  apiVersion: "2025-01-27.acacia",
+  apiVersion: "2023-10-16",
   typescript: true,
 })
 

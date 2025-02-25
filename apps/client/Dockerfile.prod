@@ -1,0 +1,35 @@
+# Build stage
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+# Copy only necessary files for build
+COPY next.config.* ./
+COPY tsconfig.json ./
+COPY app ./app
+COPY public ./public
+COPY components ./components
+COPY lib ./lib
+COPY actions ./actions
+COPY providers ./providers
+COPY types ./types
+
+RUN npm run build
+
+# Runner stage
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Copy only the built files and necessary runtime files
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
