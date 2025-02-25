@@ -5,7 +5,8 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "dev": "turbo dev",
-    "stripe": "cd apps/client && yarn stripe"
+    "stripe": "cd apps/client && yarn stripe",
+    "rebuild": "./rebuild.sh"
   },
   "devDependencies": {
     "prettier": "^3.5.0",
